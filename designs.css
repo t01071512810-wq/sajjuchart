@@ -1,0 +1,267 @@
+/* designs/ 폴더의 DESIGN.md(awesome-design-md, MIT)를 보고 옮긴 디자인 토큰.
+   겉모습만 바꿉니다. 상승 빨강 / 하락 파랑(--up / --down)은 모든 디자인에서 한국식으로 고정. */
+
+/* ---------- Revolut: 검은 히어로, 코발트 바이올렛, 알약 버튼 ---------- */
+:root[data-design="revolut"] {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --ink: #191c1f;
+  --muted: #505a63;
+  --line: #e2e2e7;
+  --accent: #494fdf;
+  --link: #376cd5;
+  --metal: #7a828c;
+  --up: #e42939;
+  --down: #2a6fdb;
+
+  --font: Inter, Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: var(--font);
+  --font-num: var(--font);
+  --display-weight: 500;
+  --display-tracking: -0.02em;
+  --h1-size: clamp(34px, 8vw, 64px);
+
+  --hero-bg: #000000;
+  --hero-ink: #ffffff;
+  --hero-sub: rgba(255, 255, 255, 0.72);
+  --hero-pad: 56px 16px 48px;
+
+  --r-panel: 20px;
+  --r-zone: 20px;
+  --r-card: 12px;
+  --r-input: 12px;
+  --r-btn: 9999px;
+  --panel-border: 1px solid #e2e2e7;
+  --card-border: 1px solid #e2e2e7;
+  --input-bg: #ffffff;
+  --input-border: 1px solid #e2e2e7;
+  --input-pad: 14px 16px;
+
+  --btn-bg: #000000;
+  --btn-ink: #ffffff;
+  --btn-h: 48px;
+  --btn-weight: 600;
+  --ghost-bg: #ffffff;
+  --ghost-ink: #191c1f;
+  --ghost-border: 1px solid #191c1f;
+
+  --fun-bg: #f4f4f4;
+  --fun-border: 2px dashed #c9c9cd;
+  --fun-badge-bg: #494fdf;
+  --fun-badge-ink: #ffffff;
+  --real-bg: #ffffff;
+  --real-border: 1px solid #191c1f;
+  --real-badge-bg: #191c1f;
+  --real-badge-ink: #ffffff;
+}
+[data-design="revolut"] .design-bar { background: #000; border-color: rgba(255,255,255,.12); }
+[data-design="revolut"] .design-label { color: rgba(255,255,255,.72); }
+[data-design="revolut"] .design-opts button { color: #fff; border-color: rgba(255,255,255,.3); }
+[data-design="revolut"] .design-opts button[aria-pressed="true"] { background: #fff; color: #000; border-color: #fff; }
+[data-design="revolut"] .share-card {
+  background: #000000; border-radius: 20px;
+  --sc-row: #16181a; --sc-lack: var(--c1); --sc-num: #ffffff;
+}
+[data-design="revolut"] .share-card .sc-name,
+[data-design="revolut"] .share-card .sc-lack b { font-weight: 500; letter-spacing: -0.02em; }
+[data-design="revolut"] .share-card li { border-radius: 20px; }
+[data-design="revolut"] .share-card li:first-child { background: #494fdf; }
+
+/* ---------- Coinbase: 흰 바탕, 코인베이스 블루 하나, 얇은 제목, 숫자는 고정폭 ---------- */
+:root[data-design="coinbase"] {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --ink: #0a0b0d;
+  --muted: #5b616e;
+  --line: #dee1e6;
+  --accent: #0052ff;
+  --link: #0052ff;
+  --metal: #7c828a;
+  --up: #e42939;
+  --down: #2a6fdb;
+
+  --font: Inter, Pretendard, -apple-system, system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
+  --font-display: var(--font);
+  --font-num: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.015em;
+  --h1-size: clamp(34px, 8vw, 60px);
+
+  --hero-bg: #0a0b0d;
+  --hero-ink: #ffffff;
+  --hero-sub: #a8acb3;
+  --hero-pad: 64px 16px 56px;
+
+  --r-panel: 24px;
+  --r-zone: 24px;
+  --r-card: 16px;
+  --r-input: 12px;
+  --r-btn: 100px;
+  --panel-border: 1px solid #dee1e6;
+  --card-border: 1px solid #dee1e6;
+  --input-bg: #ffffff;
+  --input-border: 1px solid #dee1e6;
+  --input-pad: 12px 16px;
+
+  --btn-bg: #0052ff;
+  --btn-ink: #ffffff;
+  --btn-h: 48px;
+  --btn-weight: 600;
+  --ghost-bg: #eef0f3;
+  --ghost-ink: #0a0b0d;
+  --ghost-border: 0;
+
+  --fun-bg: #f7f7f7;
+  --fun-border: 2px dashed #a8acb3;
+  --fun-badge-bg: #eef0f3;
+  --fun-badge-ink: #0a0b0d;
+  --real-bg: #ffffff;
+  --real-border: 1px solid #dee1e6;
+  --real-badge-bg: #0052ff;
+  --real-badge-ink: #ffffff;
+}
+[data-design="coinbase"] input:focus-visible { outline: 0; border: 2px solid #0052ff; }
+[data-design="coinbase"] .zone h2,
+[data-design="coinbase"] .share-wrap h2 { font-size: 26px; }
+[data-design="coinbase"] .share-card {
+  background: #0a0b0d; border-radius: 24px;
+  --sc-row: #16181c; --sc-lack: var(--c1); --sc-num: #ffffff;
+}
+[data-design="coinbase"] .share-card .sc-name,
+[data-design="coinbase"] .share-card .sc-lack b { font-weight: 400; }
+[data-design="coinbase"] .share-card li { border-radius: 16px; }
+[data-design="coinbase"] .share-card .rk { color: #0052ff; opacity: 1; background: #fff; border-radius: 50%; width: 26px; height: 26px; display: grid; place-items: center; font-size: 14px; }
+
+/* ---------- Wise: 세이지 바탕, 라임 버튼, 아주 굵은 제목, 24px 둥근 모서리 ---------- */
+:root[data-design="wise"] {
+  --bg: #e8ebe6;
+  --panel: #ffffff;
+  --ink: #0e0f0c;
+  --muted: #454745;
+  --line: #d3d8cf;
+  --accent: #163300;
+  --link: #163300;
+  --metal: #868685;
+  --up: #e42939;
+  --down: #2a6fdb;
+
+  --font: Inter, Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: Inter, Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  --font-num: var(--font);
+  --display-weight: 900;
+  --display-tracking: -0.03em;
+  --h1-size: clamp(38px, 9vw, 72px);
+
+  --hero-bg: #e8ebe6;
+  --hero-ink: #0e0f0c;
+  --hero-sub: #454745;
+  --hero-pad: 48px 16px 32px;
+
+  --r-panel: 24px;
+  --r-zone: 24px;
+  --r-card: 16px;
+  --r-input: 12px;
+  --r-btn: 24px;
+  --panel-border: 0;
+  --card-border: 1px solid #e8ebe6;
+  --input-bg: #ffffff;
+  --input-border: 1px solid #0e0f0c;
+  --input-pad: 12px 16px;
+
+  --btn-bg: #9fe870;
+  --btn-ink: #0e0f0c;
+  --btn-h: 48px;
+  --btn-weight: 600;
+  --ghost-bg: #ffffff;
+  --ghost-ink: #0e0f0c;
+  --ghost-border: 1px solid #0e0f0c;
+
+  --fun-bg: #e2f6d5;
+  --fun-border: 2px dashed #9fe870;
+  --fun-badge-bg: #9fe870;
+  --fun-badge-ink: #0e0f0c;
+  --real-bg: #ffffff;
+  --real-border: 1px solid #0e0f0c;
+  --real-badge-bg: #0e0f0c;
+  --real-badge-ink: #9fe870;
+}
+[data-design="wise"] .design-bar { background: #e8ebe6; border-color: #d3d8cf; }
+[data-design="wise"] .design-opts button[aria-pressed="true"] { background: #9fe870; color: #0e0f0c; border-color: #9fe870; }
+[data-design="wise"] .seg input:checked + span { background: #9fe870; box-shadow: none; }
+[data-design="wise"] .zone h2,
+[data-design="wise"] .share-wrap h2 { font-size: 28px; }
+[data-design="wise"] .share-card {
+  background: #9fe870; color: #0e0f0c; border-radius: 24px;
+  --sc-row: #ffffff; --sc-lack: #163300; --sc-num: #0e0f0c;
+}
+[data-design="wise"] .share-card .sc-name,
+[data-design="wise"] .share-card .sc-lack b { font-weight: 900; letter-spacing: -0.03em; }
+[data-design="wise"] .share-card li { border-radius: 16px; }
+[data-design="wise"] .share-card .sc-foot { opacity: 1; color: #163300; }
+
+/* ---------- Binance: 거의 검은 바탕, 바이낸스 옐로, 작은 6px 모서리 ---------- */
+:root[data-design="binance"] {
+  --bg: #0b0e11;
+  --panel: #1e2329;
+  --ink: #eaecef;
+  --muted: #929aa5;
+  --line: #2b3139;
+  --accent: #fcd535;
+  --link: #fcd535;
+  --metal: #a5adb6;
+  --up: #ff4d5a;
+  --down: #4d8dff;
+
+  --font: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+  --font-display: var(--font);
+  --font-num: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --display-weight: 700;
+  --display-tracking: -0.01em;
+  --h1-size: clamp(32px, 7.5vw, 56px);
+
+  --hero-bg: #0b0e11;
+  --hero-ink: #fcd535;
+  --hero-sub: #eaecef;
+  --hero-pad: 48px 16px 36px;
+
+  --r-panel: 12px;
+  --r-zone: 12px;
+  --r-card: 8px;
+  --r-input: 6px;
+  --r-btn: 6px;
+  --r-chip: 4px;
+  --panel-border: 0;
+  --card-border: 1px solid #2b3139;
+  --input-bg: #2b3139;
+  --input-border: 1px solid #2b3139;
+  --input-pad: 10px 16px;
+
+  --btn-bg: #fcd535;
+  --btn-ink: #181a20;
+  --btn-h: 44px;
+  --btn-weight: 600;
+  --ghost-bg: #2b3139;
+  --ghost-ink: #ffffff;
+  --ghost-border: 0;
+
+  --fun-bg: #1e2329;
+  --fun-border: 2px dashed #6b5d1c;
+  --fun-badge-bg: #fcd535;
+  --fun-badge-ink: #181a20;
+  --real-bg: #161a1e;
+  --real-border: 1px solid #2b3139;
+  --real-badge-bg: #2b3139;
+  --real-badge-ink: #eaecef;
+}
+[data-design="binance"] { color-scheme: dark; }
+[data-design="binance"] .design-bar { background: #0b0e11; }
+[data-design="binance"] .design-opts button[aria-pressed="true"] { background: #fcd535; color: #181a20; border-color: #fcd535; }
+[data-design="binance"] .seg input:checked + span { background: #fcd535; color: #181a20; }
+[data-design="binance"] .chips span { background: #2b3139; border-color: #2b3139; }
+[data-design="binance"] .card .rs { color: #fcd535; }
+[data-design="binance"] .share-card {
+  background: #0b0e11; border-radius: 12px; border: 1px solid #2b3139;
+  --sc-row: #1e2329; --sc-lack: var(--c1); --sc-num: #fcd535;
+}
+[data-design="binance"] .share-card .sc-name { color: #fcd535; font-weight: 700; }
+[data-design="binance"] .share-card li { border-radius: 8px; }

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>사주 체력 종목</title>
+  <meta name="description" content="내 사주에 부족한 오행을 채워 주는 업종에서 상대강도(RS) 80점 넘는 코스피 종목을 찾아봐요. 사주는 재미로!">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="designs.css">
+  <script>
+    // 고른 디자인을 그리기 전에 먼저 붙여서 깜빡임을 막습니다.
+    try {
+      var d = localStorage.getItem("saju-design");
+      if (/^(revolut|coinbase|wise|binance)$/.test(d)) document.documentElement.dataset.design = d;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <nav class="design-bar" aria-label="디자인 고르기">
+    <div class="design-in">
+      <span class="design-label" id="designLabel">디자인 고르기</span>
+      <div class="design-opts" role="group" aria-labelledby="designLabel">
+        <button type="button" data-design="default"><span class="sw" style="background:linear-gradient(135deg,#5b3fd6 50%,#f6f4f0 50%)"></span>기본</button>
+        <button type="button" data-design="revolut"><span class="sw" style="background:linear-gradient(135deg,#000 50%,#494fdf 50%)"></span>Revolut 느낌</button>
+        <button type="button" data-design="coinbase"><span class="sw" style="background:linear-gradient(135deg,#0052ff 50%,#fff 50%)"></span>Coinbase 느낌</button>
+        <button type="button" data-design="wise"><span class="sw" style="background:linear-gradient(135deg,#9fe870 50%,#e8ebe6 50%)"></span>Wise 느낌</button>
+        <button type="button" data-design="binance"><span class="sw" style="background:linear-gradient(135deg,#fcd535 50%,#0b0e11 50%)"></span>Binance 느낌</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="top">
+    <div class="top-in">
+      <h1>사주 체력 종목</h1>
+      <p>내 사주에 모자란 기운을 채워 줄 업종에서, 요즘 체력 좋은 코스피 종목 찾기</p>
+    </div>
+  </header>
+
+  <main>
+    <form id="form" class="panel input-panel" autocomplete="off">
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" name="name" maxlength="12" placeholder="예: 김사주" required>
+      </div>
+
+      <div class="field">
+        <span class="label">달력</span>
+        <div class="seg" role="radiogroup" aria-label="양력 음력">
+          <label><input type="radio" name="cal" value="solar" checked><span>양력</span></label>
+          <label><input type="radio" name="cal" value="lunar"><span>음력</span></label>
+        </div>
+        <label class="check leap-wrap" hidden><input type="checkbox" id="leap"> 윤달</label>
+      </div>
+
+      <div class="field">
+        <span class="label">태어난 날</span>
+        <div class="date-row">
+          <input id="year" type="number" inputmode="numeric" min="1900" max="2100" placeholder="1990" required aria-label="연도"><span>년</span>
+          <input id="month" type="number" inputmode="numeric" min="1" max="12" placeholder="5" required aria-label="월"><span>월</span>
+          <input id="day" type="number" inputmode="numeric" min="1" max="31" placeholder="12" required aria-label="일"><span>일</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="time">태어난 시간</label>
+        <div class="time-row">
+          <input id="time" type="time" value="12:00">
+          <label class="check"><input type="checkbox" id="noTime"> 시간 몰라요</label>
+        </div>
+      </div>
+
+      <p id="formError" class="error" role="alert" hidden></p>
+      <button type="submit" class="primary">사주 보고 종목 찾기</button>
+    </form>
+
+    <div id="result" hidden>
+      <!-- 재미 영역 -->
+      <section class="zone fun">
+        <div class="zone-badge">🔮 재미로 보는 거예요 · 과학적 근거 없음</div>
+
+        <h2>내 사주 팔자</h2>
+        <p class="sub" id="birthLine"></p>
+        <div class="pillars" id="pillars"></div>
+
+        <h3>오행 개수</h3>
+        <div class="bars" id="bars"></div>
+        <p class="lack" id="lackLine"></p>
+
+        <h3>오행 ↔ 업종 짝짓기</h3>
+        <p class="sub">KRX 상장회사 목록(KRX-DESC)의 업종을 아래처럼 오행에 나눴어요. 테두리 친 줄이 나한테 부족한 기운이에요. 다른 줄도 눌러서 펼쳐 볼 수 있어요.</p>
+        <div class="map" id="map"></div>
+      </section>
+
+      <!-- 실제 데이터 영역 -->
+      <section class="zone real">
+        <div class="zone-badge real-badge">📊 실제 공개 데이터 · 투자 권유 아님</div>
+        <h2 id="stocksTitle">체력 좋은 종목</h2>
+        <p class="source" id="sourceLine"></p>
+        <div class="cards" id="cards"></div>
+        <p class="foot" id="stocksFoot"></p>
+      </section>
+
+      <!-- 자랑 카드 -->
+      <section class="share-wrap">
+        <h2>단톡방 자랑 카드</h2>
+        <div id="shareCard" class="share-card"></div>
+        <div class="share-actions">
+          <button type="button" id="saveImg" class="primary">그림으로 저장</button>
+          <button type="button" id="copyLink" class="ghost">링크 복사</button>
+        </div>
+        <p class="toast" id="toast" role="status"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="bottom">
+    사주 계산: <a href="https://github.com/golbin/ssaju" target="_blank" rel="noopener">ssaju</a> (MIT) ·
+    RS 점수: <a href="https://dalinaum.github.io/rs/" target="_blank" rel="noopener">달리나음의 코스피 상대 강도</a> (공개된 점수만 읽음) ·
+    업종: <a href="https://github.com/FinanceData/FinanceDataReader" target="_blank" rel="noopener">FinanceDataReader</a> KRX-DESC ·
+    디자인: <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">awesome-design-md</a> (MIT) 문서를 참고한 비공식 스타일이며, 각 회사와 관계없어요.
+  </footer>
+
+  <script src="vendor/ssaju.js"></script>
+  <script src="vendor/html2canvas.min.js"></script>
+  <script src="data/data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

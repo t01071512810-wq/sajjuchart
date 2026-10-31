@@ -3,7 +3,8 @@
 - RS 점수: https://dalinaum.github.io/rs/ 에 공개된 '코스피 상대강도' 글의 표만 읽습니다 (그 사이트의 코드는 쓰지 않음).
 - 업종: FinanceDataReader의 StockListing('KRX-DESC') → KOSPI 종목의 Industry 열.
 
-실행:  .venv/Scripts/python scripts/update_data.py
+실행:  .venv/Scripts/python -m pip install -r scripts/requirements.txt
+      .venv/Scripts/python scripts/update_data.py
 """
 
 import json

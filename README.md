@@ -11,9 +11,16 @@
 .venv/Scripts/python -m http.server 8765
 ```
 
+## 배포 (Vercel)
+
+빌드 없는 정적 사이트입니다. `vercel.json`이 프레임워크를 끄고(`"framework": null`) 폴더를 그대로 내보내며,
+`.vercelignore`가 `scripts/`, `designs/`를 배포에서 뺍니다. 파이썬은 데이터를 만들 때만 쓰므로
+`requirements.txt`는 `scripts/` 안에 둡니다 (맨 위에 두면 Vercel이 파이썬 서버로 착각합니다).
+
 ## 데이터 새로 받기
 
 ```bash
+.venv/Scripts/python -m pip install -r scripts/requirements.txt
 .venv/Scripts/python scripts/update_data.py
 ```
 

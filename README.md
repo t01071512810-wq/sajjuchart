@@ -28,6 +28,20 @@
 - 업종: [FinanceDataReader](https://github.com/FinanceData/FinanceDataReader) `StockListing('KRX-DESC')`의 `Industry` 열 (코스피 종목은 `Sector` 열이 비어 있음). 우선주는 보통주 업종을 따릅니다.
 - 오행 ↔ 업종 짝짓기: `data/element_map.json`에서 고칠 수 있습니다. 짝이 없는 업종이 생기면 스크립트가 경고합니다.
 
+## 신호 차트 (`chart.html`)
+
+삼성전자(005930) 최근 5년 일봉에 세 가지 신호를 표시합니다. 신호마다 켜고 끌 수 있고, 표시를 누르면 그날 날짜·가격이 뜹니다.
+
+- ▲ 5일선이 20일선을 아래에서 위로 뚫은 날
+- ★ 종가가 직전 250거래일 최고가(고가 기준)를 넘긴 날. 직전 20거래일 안에 이미 넘긴 적이 없을 때만(처음 다시 넘긴 날만)
+- W 쌍바닥: 두 바닥 저가 차이 3% 이내, 10~60거래일 간격, 가운데 고점이 첫 바닥보다 10% 이상. 두 번째 바닥 뒤 종가가 가운데 고점을 넘는 날 완성
+
+기준 숫자는 `signals.js` 맨 위 `RULES`에서 고칠 수 있습니다. 주가 파일(`data/chart_005930.js`)은 이렇게 새로 받습니다.
+
+```bash
+.venv/Scripts/python scripts/update_chart.py
+```
+
 ## 디자인 고르기
 
 맨 위 메뉴에서 기본 / Revolut / Coinbase / Wise / Binance 느낌을 고를 수 있고, 고른 값은 브라우저(localStorage)에 남습니다.
@@ -41,3 +55,4 @@
 
 - [ssaju](https://github.com/golbin/ssaju) v0.2.0 (MIT) → `vendor/ssaju.js` (npm 빌드본을 전역 스크립트로 감쌈)
 - [html2canvas](https://html2canvas.hertzen.com/) 1.4.1 (MIT) → 자랑 카드 그림 저장
+- [TradingView Lightweight Charts™](https://github.com/tradingview/lightweight-charts) 4.2.3 (Apache-2.0) → `vendor/lightweight-charts.standalone.production.js`, 신호 차트

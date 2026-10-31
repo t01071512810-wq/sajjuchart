@@ -42,6 +42,17 @@
 .venv/Scripts/python scripts/update_chart.py
 ```
 
+## 백테스트 ("이렇게 샀으면 얼마 벌었을까?")
+
+삼성전자·SK하이닉스·NAVER에 여섯 가지 매매 방법을 [backtesting.py](https://github.com/kernc/backtesting.py)로 돌립니다.
+신호는 종가, 체결은 다음 날 시가, 수수료+세금 0.25%(살 때·팔 때 각각). 방법과 규칙은 `scripts/backtest.py` 맨 위 설명에 있습니다.
+
+```bash
+.venv/Scripts/python scripts/backtest.py
+```
+
+결과 표는 `backtest/results.md`, 종목별 1등 방법의 사고판 자리 차트는 `backtest/chart_<코드>.html`에 저장됩니다.
+
 ## 디자인 고르기
 
 맨 위 메뉴에서 기본 / Revolut / Coinbase / Wise / Binance 느낌을 고를 수 있고, 고른 값은 브라우저(localStorage)에 남습니다.

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전략 비교</title>
+  <meta name="description" content="삼성전자·SK하이닉스·NAVER에 매매 방법 여섯 가지를 2014년부터 돌려 본 백테스트 결과 비교">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="designs.css">
+  <script>
+    // 고른 디자인을 그리기 전에 먼저 붙여서 깜빡임을 막습니다.
+    try {
+      var d = localStorage.getItem("saju-design");
+      if (/^(revolut|coinbase|wise|binance)$/.test(d)) document.documentElement.dataset.design = d;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <nav class="design-bar" aria-label="디자인 고르기">
+    <div class="design-in">
+      <span class="design-label" id="designLabel">디자인 고르기</span>
+      <div class="design-opts" role="group" aria-labelledby="designLabel">
+        <button type="button" data-design="default"><span class="sw" style="background:linear-gradient(135deg,#5b3fd6 50%,#f6f4f0 50%)"></span>기본</button>
+        <button type="button" data-design="revolut"><span class="sw" style="background:linear-gradient(135deg,#000 50%,#494fdf 50%)"></span>Revolut 느낌</button>
+        <button type="button" data-design="coinbase"><span class="sw" style="background:linear-gradient(135deg,#0052ff 50%,#fff 50%)"></span>Coinbase 느낌</button>
+        <button type="button" data-design="wise"><span class="sw" style="background:linear-gradient(135deg,#9fe870 50%,#e8ebe6 50%)"></span>Wise 느낌</button>
+        <button type="button" data-design="binance"><span class="sw" style="background:linear-gradient(135deg,#fcd535 50%,#0b0e11 50%)"></span>Binance 느낌</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="top">
+    <div class="top-in">
+      <div class="page-nav"><a href="index.html">사주 체력 종목</a><a href="chart.html">신호 차트</a><a href="backtest.html" aria-current="page">전략 비교</a></div>
+      <h1>이렇게 샀으면 얼마 벌었을까?</h1>
+      <p id="subLine">매매 방법 여섯 가지를 지난 주가에 그대로 돌려 본 결과</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel bt-panel">
+      <div class="bt-head">
+        <div class="range-seg" role="group" aria-label="종목" id="stockSeg"></div>
+        <span class="bt-period" id="period"></span>
+      </div>
+      <div class="bt-table-wrap">
+        <table class="bt-table">
+          <thead>
+            <tr><th scope="col">방법</th><th scope="col">수익률</th><th scope="col">1억 원이</th><th scope="col">최대 낙폭</th><th scope="col">사고판</th><th scope="col">이긴</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="chart-hint">줄을 누르면 아래 차트에 그 방법으로 사고판 자리가 찍혀요. 사고판 횟수는 산 뒤 판 한 묶음을 1번으로 세요.</p>
+    </section>
+
+    <section class="panel chart-panel bt-chart-panel">
+      <div class="chart-bar">
+        <div class="chart-legend" id="legend"></div>
+        <div class="seg range-seg" role="group" aria-label="기간" id="rangeSeg">
+          <button type="button" data-range="250">1년</button>
+          <button type="button" data-range="750">3년</button>
+          <button type="button" data-range="all" aria-pressed="true">전체</button>
+        </div>
+      </div>
+      <div class="chart-wrap"><div id="chart" class="chart"></div></div>
+      <p class="chart-hint"><span class="bt-key buy">▲</span> 산 날(다음 날 시가) · <span class="bt-key sell">▼</span> 판 날. 끌어서 옮기고, 휠·손가락으로 늘이고 줄일 수 있어요.</p>
+
+      <h2 class="bt-sub" id="tradeTitle">사고판 내역</h2>
+      <div class="bt-table-wrap bt-trades">
+        <table class="bt-table">
+          <thead><tr><th scope="col">#</th><th scope="col">산 날</th><th scope="col">산 값</th><th scope="col">판 날</th><th scope="col">판 값</th><th scope="col">수익률</th></tr></thead>
+          <tbody id="trades"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel rules">
+      <h2>방법과 계산 기준</h2>
+      <dl id="rules"></dl>
+      <p class="foot">지난 주가에 규칙을 대 본 결과일 뿐이에요. 투자 권유가 아니고, 앞으로도 같은 결과가 난다는 뜻도 아니에요.</p>
+    </section>
+  </main>
+
+  <footer class="bottom" id="footer">
+    주가: <a href="https://github.com/FinanceData/FinanceDataReader" target="_blank" rel="noopener">FinanceDataReader</a> ·
+    계산: <a href="https://github.com/kernc/backtesting.py" target="_blank" rel="noopener">backtesting.py</a> (AGPL-3.0, 계산에만 쓰고 사이트에는 넣지 않음) ·
+    차트: <a href="https://github.com/tradingview/lightweight-charts" target="_blank" rel="noopener">TradingView Lightweight Charts™</a> (Apache-2.0) ·
+    디자인: <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener">awesome-design-md</a> (MIT) 문서를 참고한 비공식 스타일이며, 각 회사와 관계없어요.
+  </footer>
+
+  <script src="design.js"></script>
+  <script src="vendor/lightweight-charts.standalone.production.js"></script>
+  <script src="data/backtest.js"></script>
+  <script src="backtest.js"></script>
+</body>
+</html>

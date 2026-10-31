@@ -13,8 +13,10 @@
 실행:  .venv/Scripts/python -m pip install -r scripts/requirements.txt
       .venv/Scripts/python scripts/backtest.py
 결과:  backtest/results.md (표), backtest/results.csv, backtest/chart_<코드>.html (종목별 1등 방법 차트)
+      data/backtest.js (사이트의 backtest.html 전략 비교 페이지가 읽는 파일)
 """
 
+import json
 import warnings
 from datetime import datetime, timezone
 from pathlib import Path
@@ -162,11 +164,21 @@ def run_one(df, strategy):
     }
 
 
+def trade_list(stats):
+    """사고판 묶음마다 [산 날, 산 값, 판 날, 판 값, 수익률(%, 수수료 뺌)]."""
+    return [
+        [t.EntryTime.date().isoformat(), round(float(t.EntryPrice)), t.ExitTime.date().isoformat(),
+         round(float(t.ExitPrice)), round(float(t.ReturnPct) * 100, 2)]
+        for t in stats["_trades"].itertuples()
+    ]
+
+
 def main():
     warnings.filterwarnings("ignore", module="backtesting")
     OUT.mkdir(exist_ok=True)
     rows, errors, best = [], [], {}
     periods = {}
+    site = []  # data/backtest.js 로 나갈 종목별 주가·결과
 
     for code, name in STOCKS:
         try:
@@ -175,6 +187,12 @@ def main():
             errors.append(f"{name}({code}) 주가 받기 실패: {e!r}")
             continue
         periods[code] = (df.index[0].date().isoformat(), df.index[-1].date().isoformat(), len(df))
+        stock = {
+            "code": code, "name": name,
+            "bars": [[d.date().isoformat(), int(r.Open), int(r.High), int(r.Low), int(r.Close)] for d, r in df.iterrows()],
+            "results": [],
+        }
+        site.append(stock)
 
         for label, strat in STRATEGIES:
             try:
@@ -183,6 +201,7 @@ def main():
                 errors.append(f"{name}({code}) {label} 실행 실패: {e!r}")
                 continue
             rows.append({"code": code, "name": name, "strategy": label, **r})
+            stock["results"].append({"strategy": label, **r, "tradeList": trade_list(stats)})
             if code not in best or r["return_pct"] > best[code][1]["return_pct"]:
                 best[code] = (bt, r, label)
 
@@ -190,6 +209,20 @@ def main():
         path = OUT / f"chart_{code}.html"
         bt.plot(filename=str(path), open_browser=False, resample=False)
         print(f"차트 저장: {path.relative_to(ROOT)}  ({label})")
+
+    for stock in site:
+        stock["best"] = best[stock["code"]][2] if stock["code"] in best else None
+    payload = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "cash": CASH, "commission": COMMISSION,
+        "engine": "backtesting.py", "stocks": site, "errors": errors,
+    }
+    body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    (ROOT / "data" / "backtest.js").write_text(
+        "// scripts/backtest.py 가 만든 파일입니다. 직접 고치지 마세요.\n"
+        f"window.BACKTEST = {body};\n",
+        encoding="utf-8",
+    )
 
     table = pd.DataFrame(rows)
     table.to_csv(OUT / "results.csv", index=False, encoding="utf-8-sig")

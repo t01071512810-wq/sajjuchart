@@ -329,3 +329,30 @@ button:hover { filter: brightness(1.05); }
   .sig-toggles { grid-template-columns: 1fr; }
   .chart { height: 360px; }
 }
+
+/* ---------- 전략 비교 ---------- */
+.bt-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.bt-period { font-size: 13px; color: var(--muted); }
+.bt-table-wrap { overflow-x: auto; }
+.bt-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.bt-table th, .bt-table td { padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.bt-table thead th { font-size: 12px; font-weight: 600; color: var(--muted); }
+.bt-table tbody th { font-weight: 600; }
+.bt-table .num { text-align: right; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.bt-table thead th:not(:first-child) { text-align: right; }
+.bt-table tbody tr { cursor: pointer; }
+.bt-table tbody tr:hover { background: rgba(127,127,127,.07); }
+.bt-table tbody tr[aria-selected="true"] { background: rgba(127,127,127,.14); box-shadow: inset 3px 0 0 var(--accent); }
+.bt-table tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.bt-best { display: inline-block; margin-left: 4px; padding: 1px 7px; border-radius: var(--r-chip); background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; vertical-align: 1px; }
+.bt-chart-panel { margin-top: 16px; }
+.bt-key { font-weight: 800; } .bt-key.buy { color: var(--up); } .bt-key.sell { color: var(--down); }
+.bt-sub { margin: 20px 0 6px; font-size: 16px; }
+.bt-trades { max-height: 320px; overflow-y: auto; }
+.bt-trades thead th { position: sticky; top: 0; background: var(--panel); }
+.bt-trades .bt-table thead th:nth-child(2), .bt-trades .bt-table thead th:nth-child(4) { text-align: left; }
+@media (max-width: 640px) {
+  .bt-table { font-size: 13px; }
+  .bt-table th, .bt-table td { padding: 8px 5px; }
+  .bt-table tbody th { white-space: normal; min-width: 8.5em; }
+}
